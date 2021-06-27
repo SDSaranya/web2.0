@@ -1,8 +1,8 @@
 const mysql = require('mysql');
 const db_config = {
-    host: '127.0,.0.1',
+    host: 'localhost',
     user: 'root',
-    password: 'Srinivasan1!',
+    password: 'password',
     database: 'webapp'
 }
 
@@ -10,17 +10,19 @@ var connection;
 
 function handleDisconnect(){
    connection = mysql.createConnection(db_config);
-    connection.connect(err => {
+    connection.connect(function(err) {
         if(err){
             console.log('DB connection error', err)
             setTimeout(handleDisconnect(), 2000);
         }
     });
 
-    connection.on((err){
-        if(err.code == 'PROTOCOL_CONNECTION_LOST'){
+    connection.on('error', function(error) {
+        if(error.code == 'PROTOCOL_CONNECTION_LOST'){
+            console.log('DB connection error', err)
             handleDisconnect();
         } else{
+            console.log('saraaaaaaaaaa')
             throw err;
         }
     })
@@ -28,4 +30,4 @@ function handleDisconnect(){
 
 handleDisconnect();
 
-export default connection;
+module.exports =  connection;
