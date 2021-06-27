@@ -4,7 +4,7 @@ const bodyparser = require('body-parser');
 const {save_user} = require('./models/server_db');
 var path = require('path');
 var public = path.join(__dirname, './public');
-
+console.log('check');
 app.use(bodyparser.json());
 app.use(express.static(public));
 
