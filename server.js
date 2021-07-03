@@ -8,7 +8,7 @@ console.log('check');
 app.use(bodyparser.json());
 app.use(express.static(public));
 
-app.post('/', async(req, res)=> {
+app.post('/post_info', async(req, res)=> {
     var email = req.body.email;
     var amount = req.body.amount;
     if(amount <= 1) {
@@ -22,7 +22,6 @@ app.post('/', async(req, res)=> {
 });
 
 app.get('/get_total_amount', async(req, res)=> {
-   
     var result = await get_total_amount();
     res.send(result);
 });
