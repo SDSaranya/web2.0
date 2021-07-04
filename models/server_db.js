@@ -10,6 +10,7 @@ save_user = (data) =>  new Promise((resolve, reject) => {
            
     });
 });
+
 get_total_amount = (data) => new Promise((resolve, reject) => {
     db.query("SELECT SUM(amount) AS total_amount  from lottery_information", function(err, results, fields){
         if(err) {
@@ -17,7 +18,6 @@ get_total_amount = (data) => new Promise((resolve, reject) => {
             reject('could not insert', err);
         } 
             resolve(results);
-           
     });
 
 });

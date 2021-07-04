@@ -10,11 +10,11 @@ class App extends React.Component {
     onSubmit = async (event)=>{
         event.preventDefault();
         const response = await axios.post('/post_info', {
-            total_amount: 1000,
             amount: this.state.amount,
             email: this.state.email
         })
         console.log(response)
+        window.location.href = response.data;
     }
 
     async componentDidMount(){
