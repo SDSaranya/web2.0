@@ -31,7 +31,7 @@ get_list_of_participants =(data) => new Promise((resolve, reject) => {
 });
 
 delete_all_users = (data) => new Promise((resolve, reject)=> {
-    db.query("DELETE FROM lottery_information where id > 0", null, function(err, results, fields){
+    db.query("DELETE FROM webapp.lottery_information where id > 0", null, function(err, results, fields){
         if(err){
             reject('could not insert', err);
         }

@@ -9,7 +9,7 @@ var session = require('express-session');
 app.use(session(
     {
         secret: 'my_web_app',
-        cookie:{maxAge: 60000}
+        cookie: {maxAge: 60000}
     })
 )
 app.use(bodyparser.json());
@@ -17,8 +17,8 @@ app.use(express.static(public));
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
-    'client_id': 'ASKZe2jlwegzo4ysiy4WDjuQnEYLZ_09TNPQAEU9dYay5Uq5QNNQ1sJbWuXIk9YSLOW5FvxNL3avcnJv',
-    'client_secret': 'EPo6z9KqyKYAPt3MQKeKo3x0VamK9jSw9NWGZFOZAPV4U_vxvg3nnKPybYjuvV-ua5uquXY95fJajD_c'
+    'client_id': 'EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM',
+    'client_secret': 'EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM'
 });
 
 app.post('/post_info', async(req, res)=> {
@@ -92,7 +92,6 @@ app.get('/get_total_amount', async(req, res)=> {
 });
 
 app.get('/success', async(req, res)=>{
-    console.log
     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
 
@@ -101,7 +100,7 @@ app.get('/success', async(req, res)=>{
         "transactions": [{
             "amount": {
                 "currency": "USD",
-                "total": 100
+                "total": req.session.paypal_amount
             }
         }]
     };
@@ -135,8 +134,6 @@ app.get('/pick_winner', async(req, res)=>{
     var winner_email = email_array[Math.floor(Math.random()*email_array.length)];
     req.session.winner_picked = true;
 
-    return(true);
-
     var create_payment_json = {
         "intent": "sale",
         "payer": {
@@ -164,7 +161,7 @@ app.get('/pick_winner', async(req, res)=>{
             {
                 "email": winner_email
             },
-            "description": "Lotery purchase sample"
+            "description": "Paying the winner of the lottery application"
         }]
     };
     paypal.payment.create(create_payment_json, function (error, payment) {
@@ -175,10 +172,10 @@ app.get('/pick_winner', async(req, res)=>{
             console.log("Create Payment Response");
             console.log(payment);
             console.log('payment.links.length', payment.links.length);
-            console.log('payment.links.length', payment.links.length);
+           
             for (var i=0; i< payment.links.length; i++) {
                 if(payment.links[i].rel == 'approval_url'){
-                    return res.send(payment.links[i].href);
+                    return res.redirect(payment.links[i].href);
                 }
             }
         }
