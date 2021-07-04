@@ -19,6 +19,7 @@
   "homepage": "https://github.com/SDSaranya/web2.0#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.7",
     "paypal-rest-sdk": "^1.8.1"
