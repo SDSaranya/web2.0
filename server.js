@@ -11,8 +11,8 @@ app.use(express.static(public));
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
-    'client_id': 'ASKZe2jlwegzo4ysiy4WDjuQnEYLZ_09TNPQAEU9dYay5Uq5QNNQ1sJbWuXIk9YSLOW5FvxNL3avcnJv',
-    'client_secret': 'EPo6z9KqyKYAPt3MQKeKo3x0VamK9jSw9NWGZFOZAPV4U_vxvg3nnKPybYjuvV-ua5uquXY95fJajD_c'
+    'client_id': 'EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM',
+    'client_secret': 'EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM'
 });
 app.post('/post_info', async(req, res)=> {
     var email = req.body.email;
